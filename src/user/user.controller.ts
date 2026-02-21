@@ -7,7 +7,12 @@ import { User } from '@prisma/client';
 @Controller('user')
 export class UserController {
   @Get('me')
-  getMe(@GetUser() user: User) {
+  getMe(
+    @GetUser() user,
+    @GetUser('id') userId: number,
+    @GetUser('email') email: string,
+  ) {
+    console.log({ userId, email });
     return user;
   }
 }
