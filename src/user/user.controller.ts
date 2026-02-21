@@ -1,9 +1,12 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, UseGuards } from '@nestjs/common';
+import { GetUser } from './decorators';
+import { JwtGuard } from './guards';
 
 @Controller('user')
 export class UserController {
+  @UseGuards(JwtGuard)
   @Get('me')
-  getMe() {
-    return { userInfo: 'user Info' };
+  getMe(@GetUser() user: { userId: string; email: string }) {
+    return user;
   }
 }
